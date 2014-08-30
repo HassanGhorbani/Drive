@@ -43,7 +43,7 @@ class user extends model_user {
      * @return bool
      */
     function clean_input_password($password){
-        if(!empty($password) && strlen($password)>8 ){
+        if(!empty($password) && strlen($password)>=8 ){
             if($password == filter_var($password,FILTER_SANITIZE_STRING)){
                 return true;
             }

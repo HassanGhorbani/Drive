@@ -55,9 +55,10 @@ class model_user extends database {
      * save data in users table
      * @param $username
      * @param $password
+     * @param $id
      */
-    function insert_new_user($username,$password){
-            $sql = $this->pdo->query("INSERT INTO users (email_number,pass) VALUES ('$username','$password')");
+    function insert_new_user($id,$username,$password){
+            $sql = $this->pdo->query("INSERT INTO users (id_user,email_number,pass) VALUES ('$id','$username','$password')");
             $sql->execute();
     }
 }
