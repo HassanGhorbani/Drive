@@ -5,12 +5,16 @@
  * Date: 8/30/14
  * Time: 5:48 PM
  */
+session_start();
 require_once('../controller/controller_user.php');
 $login_form = new user();
 
 $username = $_POST['user'];
 $password = $_POST['pass'];
-echo "این صفحه فقط برای رفع اشکال است<br>";
+
+if($_SESSION['captcha'] != $_POST['captcha']){
+    header("location:../view/login");
+}
 
 
 /*
@@ -36,6 +40,12 @@ if($login_form->clean_input_username($username)){
             //if encrypt_password was the same password in stored in database so logged in
             if($user_data['pass'] == $encrypt_password){
                 echo "logged in";
+                $_SESSION['user'] = $username;
+                $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+                $_SESSION['agent'] = hash("md5",$_SERVER['HTTP_USER_AGENT']);
+
+                //go to view/home directory
+                header("location:../view/home");
             }
             else{
                 echo "password incorrect"; //password wasn't match

@@ -5,12 +5,18 @@
  * Date: 8/30/14
  * Time: 5:48 PM
  */
+
+session_start();
 require_once('../controller/controller_user.php');
 $login_form = new user();
 
 $username = $_POST['user'];
 $password = $_POST['pass'];
 echo "این صفحه فقط برای رفع اشکال است<br>";
+
+if($_SESSION['captcha'] != $_POST['captcha']){
+    header("location:../view/register?err=captcha");
+}
 
 /*
  * username check with clean_input_username function
